@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    img{
+        height: 200px;
+        width: 300px;
+    }
+    .product{
+        width: 350px;
+        margin-bottom: 30px;
+    }
+    .products{
+        display: flex;
+        flex-wrap: wrap;
+    }
+  </style>
+  <body>
+    <div class="wrapper">
+      <div class="products"></div>
+    </div>
+
+    <script>
+      let products = document.querySelector(".products");
+
+      // https://dummyjson.com/products
+
+      fetch("https://dummyjson.com/products")
+        .then((response) => {
+          return response.json();
+        })
+        .then((res) => {
+          showdata(res);
+        })
+      function showdata(data) {
+        // console.log(data)
+        data.products.forEach((res) => {
+          let imgpart = document.createElement("img");
+          let divpart = document.createElement("div");
+          let title = document.createElement("h2");
+          let descrb = document.createElement("p");
+          divpart.classList.add("product")
+          console.log(res);
+          imgpart.src = res.thumbnail;
+          title.innerHTML = res.title;
+          descrb.innerHTML = res.description
+          products.append(divpart);
+          divpart.append(imgpart);
+          divpart.append(title);
+          divpart.append(descrb);
+        });
+      }
+    </script>
+  </body>
+</html>
